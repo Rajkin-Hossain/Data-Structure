@@ -1,4 +1,5 @@
 public class Trie {
+	
 	TrieNode root;
 	char [] printChar;
 	
