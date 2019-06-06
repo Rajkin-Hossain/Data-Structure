@@ -2,8 +2,8 @@ import java.util.ArrayDeque;
 
 public class Stack {
 	
-	int [] nextBiggerValueIndex;
-	int [] array = {1, 4, 3, 5, 1, 8};
+    int [] nextBiggerValueIndex;
+    int [] array = {1, 4, 3, 5, 1, 8};
 	
     public void computeNextBiggerValueIndex(){
         ArrayDeque<Pair> stack = new ArrayDeque<Pair>();
