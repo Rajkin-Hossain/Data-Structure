@@ -1,47 +1,47 @@
 public class UnionFind {
-	
-	int [] parent;
-	int [] rank;
 
-	int size;
+int [] parent;
+int [] rank;
 
-	public UnionFind(int size) {
-		this.size = size;
+int size;
 
-		rank = new int[size];
-		parent = new int[size];
+public UnionFind(int size) {
+this.size = size;
 
-		for(int i = 0; i<size; i++) {
-			parent[i] = i;
-		}
-	}
+rank = new int[size];
+parent = new int[size];
 
-	public void mergeSets(int x, int y) {
-		int PX = findSet(x);
-		int PY = findSet(y);
+for(int i = 0; i<size; i++) {
+	parent[i] = i;
+}
+}
 
-		if(PX == PY) return;
+public void mergeSets(int x, int y) {
+int PX = findSet(x);
+int PY = findSet(y);
 
-		if (rank[PX] > rank[PY]) {
-			parent[PY] = PX; // means py er parent ekhon px
-		}
-		else {
-			parent[PX] = PY;
-		}
+if(PX == PY) return;
 
-		if (rank[PX] == rank[PY]) rank[PY] = rank[PY] + 1; // 2 ta rank soman thaka means ekta tree er size barano
-	}
+if (rank[PX] > rank[PY]) {
+	parent[PY] = PX; // means py er parent ekhon px
+}
+else {
+	parent[PX] = PY;
+}
 
-	public int findSet(int x){
-		while (x != parent[x]) { 
-			x = parent[x];
-		}
+if (rank[PX] == rank[PY]) rank[PY] = rank[PY] + 1; // 2 ta rank soman thaka means ekta tree er size barano
+}
 
-		return parent[x];
-	}
+public int findSet(int x){
+while (x != parent[x]) { 
+	x = parent[x];
+}
 
-	public boolean isSameSet(int x, int y) {
+return parent[x];
+}
 
-		return findSet(x) == findSet(y);
-	}
+public boolean isSameSet(int x, int y) {
+
+return findSet(x) == findSet(y);
+}
 }
