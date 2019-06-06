@@ -13,7 +13,7 @@ public class Stack {
             	nextBiggerValueIndex[stack.pop().index] = i;
             }
            
-            stack.push(new Pair(array[i], i));
+            stack.push(new Pair(array[i], i));asdad
         }
        
         while(!stack.isEmpty()){
