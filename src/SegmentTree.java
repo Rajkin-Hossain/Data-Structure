@@ -24,7 +24,7 @@ public class SegmentTree {
        
         initialize(left, i, mid);
         initialize(right, mid + 1, j);
-	}
+    }
        
     public int query(int b, int e) {
         return query(1, 1, treeLength, b, e);
