@@ -1,5 +1,5 @@
 public class SegmentTree {
-	int [] tree;
+    int [] tree;
     int treeLength;
     
     int [] datas;
