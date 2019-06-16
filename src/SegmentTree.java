@@ -30,7 +30,7 @@ public class SegmentTree {
         return query(1, 1, treeLength, b, e);
     }
        
-	public int query(int nodeId, int i, int j, int b, int e) {
+    public int query(int nodeId, int i, int j, int b, int e) {
         if (i>e || j<b) {  
             return 0;
         }
