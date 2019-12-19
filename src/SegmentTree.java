@@ -24,6 +24,9 @@ public class SegmentTree {
        
         initialize(left, i, mid);
         initialize(right, mid + 1, j);
+        
+        // Be careful to remove updating line from initialization
+        tree[nodeId] = tree[left] + tree[right];
     }
        
     public int query(int b, int e) {
