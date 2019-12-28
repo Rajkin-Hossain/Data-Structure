@@ -1,6 +1,6 @@
 import java.util.ArrayDeque;
 
-public class Stack {
+public class StackOperation {
 	
     int [] nextBiggerValueIndex;
     int [] array = {1, 4, 3, 5, 1, 8};
