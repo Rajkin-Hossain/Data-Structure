@@ -1,3 +1,7 @@
+// While using this temple don't copy import part
+
+import java.util.ArrayList;
+
 public class Treap {
 	
     Node root;
@@ -5,16 +9,14 @@ public class Treap {
     int length;
     int g_seed;
     int ans;
- 
-    long lowerValue, higherValue;
-    long ceilValue, floorValue;
+    
+    ArrayList<Long> sortedList;
        
     public Treap(){
         g_seed = 1;
         length = 0;
-           
-        lowerValue = higherValue = -1;
-        ceilValue = floorValue = -1;
+        
+        sortedList = new ArrayList<Long>();
     }
        
     int fastrand() {
@@ -84,23 +86,24 @@ public class Treap {
         root = insert(root, value);
         length++;
     }
-   
-    boolean isFound(Node cursor, long value){
-        if(cursor == null) return false;
-       
-        if(value < cursor.value){
-            return isFound(cursor.left, value);
-        }
-        else if(value == cursor.value){
-            return true;
-        }
-        else{
-            return isFound(cursor.right, value);
-        }
-    }
-   
-    boolean isFound(long value){
-        return isFound(root, value);
+    
+    boolean isContain(long value) {
+    	
+    	Node cursor = root;
+    	
+    	while(cursor != null) {
+    		if(value < cursor.value) {
+    			cursor = cursor.left;
+    		}
+    		else if(value == cursor.value) {
+    			return true;
+    		}
+    		else {
+    			cursor = cursor.right;
+    		}
+    	}
+    	
+    	return false;
     }
    
     Node delete(Node cursor, long key) {
@@ -157,78 +160,76 @@ public class Treap {
         return getKth(root, 0, k).value;
     }
    
-    void higher(Node cursor, long key){
-        if(cursor == null) return;
+    long higher(long key){
+        
+    	long higherKey = Long.MIN_VALUE;
+    	Node cursor = root;
+    	
+    	while(cursor != null) {
+    		if(key < cursor.value) {
+    			higherKey = cursor.value;
+    			cursor = cursor.left;
+    		}
+    		else {
+    			cursor = cursor.right;
+    		}
+    	}
+    	
+    	return higherKey;
+    }
+   
+    long ceil(long key){
+        
+    	long ceilKey = Long.MIN_VALUE;
+    	Node cursor = root;
+    	
+    	while(cursor != null) {
+    		if(key <= cursor.value) {
+    			ceilKey = cursor.value;
+    			cursor = cursor.left;
+    		}
+    		else {
+    			cursor = cursor.right;
+    		}
+    	}
+    	
+    	return ceilKey;
+    }
        
-        if(key < cursor.value){
-            higherValue = cursor.value;
-            higher(cursor.left, key);
-        }
-        else{
-            higher(cursor.right, key);
-        }
+    long floor(long key){
+        
+    	long floorKey = Long.MAX_VALUE;
+    	Node cursor = root;
+    	
+    	while(cursor != null) {
+    		if(key >= cursor.value) {
+    			floorKey = cursor.value;
+    			cursor = cursor.right;
+    		}
+    		else {
+    			cursor = cursor.left;
+    		}
+    	}
+    	
+    	return floorKey;
     }
    
-    void higher(long key){
-        higherValue = -1l;
-        higher(root, key);
-    }
-   
-    void ceil(Node cursor, long key){
-        if(cursor == null) return;
-       
-        if(key < cursor.value){
-            ceilValue = cursor.value;
-            ceil(cursor.left, key);
-        }
-        else if(key == cursor.value){
-            ceilValue = cursor.value;
-        }
-        else{
-            ceil(cursor.right, key);
-        }
-    }
-   
-    void ceil(long key){
-        ceilValue = -1l;
-        ceil(root, key);
-    }
-       
-    void floor(Node cursor, long key){
-        if(cursor == null) return;
-       
-        if(key > cursor.value){
-            floorValue = cursor.value;
-            floor(cursor.right, key);
-        }
-        else if(key == cursor.value){
-            floorValue = cursor.value;
-        }
-        else{
-            floor(cursor.left, key);
-        }
-    }
-   
-    void floor(long key){
-        floorValue = -1l;
-        floor(root, key);
-    }
-   
-    void lower(Node cursor, long key){
-        if(cursor == null) return;
-       
-        if(key > cursor.value){
-            lowerValue = cursor.value;
-            lower(cursor.right, key);
-        }
-        else{
-            lower(cursor.left, key);
-        }
-    }
-   
-    void lower(long key){
-        lowerValue = -1l;
-        lower(root, key);
+    long lower(long key){
+        
+    	long lowerKey = Long.MAX_VALUE;
+    	Node cursor = root;
+    	
+    	while(cursor != null) {
+    		if(key > cursor.value) {
+    			lowerKey = cursor.value;
+    			cursor = cursor.right;
+    		}
+    		else {
+    			cursor = cursor.left;
+    		}
+    	}
+    	
+    	return lowerKey;
     }
     
     int getIndex(Node cursor, long key){
@@ -265,13 +266,21 @@ public class Treap {
     	
     	return cursor.value;
     }
+    
+    ArrayList<Long> keyList() {
+    	sortedList.clear();
+    	generateKeyList(root);
+    	
+    	return sortedList;
+    }
        
-    void print(Node root) {
+    void generateKeyList(Node root) {
         if (root == null)
             return;
-        print(root.left);
-        System.out.println(root.value);
-        print(root.right);
+        
+        generateKeyList(root.left);
+        sortedList.add(root.value);
+        generateKeyList(root.right);
     }
    
     class Node {
