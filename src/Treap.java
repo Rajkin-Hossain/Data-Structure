@@ -245,6 +245,26 @@ public class Treap {
     int getIndex(long key){
         return getIndex(root, key);
     }
+    
+    long first() {
+    	Node cursor = root;
+    	
+    	while(cursor.left != null) {
+    		cursor = cursor.left;
+    	}
+    	
+    	return cursor.value;
+    }
+    
+    long last() {
+    	Node cursor = root;
+    	
+    	while(cursor.right != null) {
+    		cursor = cursor.right;
+    	}
+    	
+    	return cursor.value;
+    }
        
     void print(Node root) {
         if (root == null)
